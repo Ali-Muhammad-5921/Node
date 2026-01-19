@@ -1,29 +1,11 @@
-const {readFile} = require('fs');
+// streams are used to read from large files 
 
-function getData(path) {
-    return new Promise((resolve, reject) => {
-        readFile(path, 'utf8', (err, data) => {
-            if (err) {
-                reject(err);
-            } else {
-                resolve(data);
-            }
-        });
-    });
-}
-getData('./content/first.txt').then(data => {
-    console.log(data);
-}).catch(err => {
-    console.error(err);
-});
+const { createReadStream } = require('fs');
 
-const start = async () => {
-    try{
-    const first = await getText('./content/first.txt')
-    console.log(first);
-    }
-    catch(error){
-        console.log(error)
-    }
-}
-start();
+const stream = createReadStream('the address of the file goes here');
+
+stream.on('data' , (result) => { // here stream is an event and data is the event it's written in the documentation 
+    console.log(result)
+})
+
+stream.on('error',(err) => console.log(err);)
