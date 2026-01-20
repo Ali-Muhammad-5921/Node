@@ -1,44 +1,43 @@
-const http = require('http');
-const {readFileSync} = require('fs');
+// there are two ways to do it :-
 
-// get all files
-const homePage = readFileSync('./02-express-tutorial/navbar-app/index.html');
-const homeStyles = readFileSync('./02-express-tutorial/navbar-app/styles.css');
-const homeImage = readFileSync('./02-express-tutorial/navbar-app/logo.svg');
-const homeLogic = readFileSync('./02-express-tutorial/navbar-app/browser-app.js');
+//      1.
+
+// const app = require('express')();
+
+//      2.
+
+const express = require('express');
+const app = express();
+
+// Both ways are correct and will create an instance of an Express application.
+// The first way is a shorthand method that directly requires and invokes the Express module in one line.
+// The second way is more explicit, where you first require the Express module and then call it to create the app instance.
+
+// You can use either method based on your preference for code clarity or conciseness.
+
+// we can use the following methods : 
+//      app.get()
+//      app.post()
+//      app.put()
+//      app.delete()
+//     app.all()
+//     app.use()
+//    app.listen()
 
 
-const server =  http.createServer((req, res) => {
-    // console.log('user hit the server .')
-    //console.log(req.method); // this tells us which method the user used to make the request e.g GET, POST , DELETE , PUT
-    //console.log(req.url); // this tells us which url the user used to make the request e.g / , /about , /api/products
 
-    // set header content type
-    if(req.url === '/'){
-        res.writeHead(200, {'Content-Type': 'text/html'})
-        res.write(homePage)
-        res.end()
-    }
-    else if(req.url === '/styles.css'){
-        res.writeHead(200, {'Content-Type': 'text/css'})
-        res.write(homeStyles)
-        res.end()
-    }
-    else if(req.url === '/logo.svg'){
-        res.writeHead(200, {'Content-Type': 'image/svg+xml'})
-        res.write(homeImage)
-        res.end()
-    }
-    else if(req.url === '/browser-app.js'){
-        res.writeHead(200, {'Content-Type': 'application/javascript'})
-        res.write(homeLogic)
-        res.end()
-    }
-    else{
-        res.writeHead(404, {'Content-Type': 'text/html'})
-        res.write('<h1>page not found</h1>')
-        res.end()
-    }
-})
+app.get('/', (req, res) => {
+    res.status(200).send('Hello World!');
+});
+app.get('/about', (req, res) => {
+    res.status(200).send('About Page');
+});
+app.use((req, res) => {
+    res.status(404).send('<h1>Page Not Found</h1>');
+});
 
-server.listen(5000)
+
+
+app.listen(3000, () => {
+    console.log('Server is running on port 3000');
+});
