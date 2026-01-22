@@ -15,6 +15,7 @@ const authorize = require('./authorize')
 //     Path Matching: app.use() can apply middleware globally to all requests or to specific path prefixes. If a path is specified (e.g., app.use('/admin', ...)), the middleware will be executed for any request path starting with that prefix (e.g., /admin, /admin/users, etc.). 
 
 
+// Morgan middleware tells you how much time the page took to repsonse . 
 
 
 app.use([logger, authorize])
