@@ -2,6 +2,13 @@ const express = require('express')
 const app = express()
 let { people } = require('./data')
 
+// For req.body to work, you must have this middleware:
+//app.use(express.json());
+// app.use(express.urlencoded({ extended: false }));
+//Without this, req.body will be undefined.
+
+
+
 // static assets
 app.use(express.static('./methods-public'))
 // parse form data
